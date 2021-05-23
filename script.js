@@ -4,40 +4,44 @@ const currentDay = document.getElementById('currentDay')
 var today = moment().format("[Today is] dddd, MMMM Do YYYY");
 currentDay.innerText = today
 
-//Time blocks
-for(var i = 0; i < 9; i++) {
 
-let rowContainer = document.createElement('div')
-let timeBlock = document.createElement('div')
-let textBlock = document.createElement('textarea')
-let textButton = document.createElement('button')
 
-rowContainer.className = "time-block row"
-timeBlock.className = "hour col-md-1"
-textBlock.className = "description col-md-10"
-textButton.className = "saveBtn col-md-1"
-console.log(rowContainer)
-timeBlock.innerText = 9 + i + ":00";
-// textBlock.addEventListener("click",inputEvent);
+var saveButton1 = document.getElementById("9ams");
+saveButton1.addEventListener("click", function(event) {
+event.preventDefault();
 
-rowContainer.appendChild(timeBlock);
-rowContainer.appendChild(textBlock);
-rowContainer.appendChild(textButton);
+var comment = document.getElementById("msg1");
+var userText1 = comment.value;
 
-document.getElementById("TopContainer").appendChild(rowContainer);
+localStorage.setItem("msg1", JSON.stringify(userText1));
+renderMessage();
 
+});
+
+function renderMessage() {
+  var displayText = JSON.parse(localStorage.getItem("userText1"));
+  
 }
 
-// function inputEvent(event){
-//     message.textContent = ""
-//     // console.log("click");
-//     // console.log(event.target.innerText);
-//     if(event.target.innerText === challengeQuestions[questionIndex].answers.correct){
-//       questionIndex++
-//       getQuestion() 
-//     } else{ 
-//         //console.log("Wrong Answer")
-//       message.textContent = "Wrong Answer, click again. Time reduced by 3 seconds."
-//       quiz.append(message)
-//     secondsLeft = secondsLeft - 3;
-//     }
+
+
+let currentHour = moment().format('H');
+let rowHour = document.getElementById("9");
+
+function rowColor() {
+    // Compares row id to current hour and sets color accordingly
+    if (currentHour === rowHour) {
+      setAttribute("class", "present");
+    } else if ((currentHour < rowHour) && (currentHour > rowHour - 6)) {
+        setAttribute("class", "future");
+    } else if ((currentHour > rowHour) && (currentHour < rowHour + 6)) {
+        setAttribute("class", "past");
+    } else {
+        setAttribute("class", "present");
+    }
+  }
+
+
+
+
+
